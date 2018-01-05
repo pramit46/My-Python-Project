@@ -1,0 +1,7 @@
+st=Stack()
+st.pushdata(1)
+st.pushdata(2)
+st.pushdata(3)
+st.pushdata(4)
+st.pushdata()
+st.popdata()
