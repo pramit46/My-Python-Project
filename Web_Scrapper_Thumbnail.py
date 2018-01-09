@@ -68,7 +68,7 @@ except Exception as ex:
     print("A Generic Error Occurred During Connecting To The given URL: "+url+"\n"+str(ex))
 finally:
     #flush the variables & streams to make them ready for next time.
-    scrapped_data.close()
+    #scrapped_data.close() #may not be necessary
     opener.close()
     links=None
     img_link=None
