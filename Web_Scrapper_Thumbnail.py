@@ -20,7 +20,7 @@ url="https://www.google.com/search?q="+searchTerm+"&tbm=isch"
 #url="http://www.500px.com"
 
 proxy_user_id="<<User ID to connect to proxy>>"
-proxy_password= ""<<Encoded Password to connect to proxy>>"
+proxy_password= "<<Encoded Password to connect to proxy>>"
 proxy_server="<<Proxy Server Name>>"
 proxy_port="<<Proxy Server Port>>"
 encode='utf-8'
