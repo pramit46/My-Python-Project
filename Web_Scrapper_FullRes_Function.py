@@ -27,11 +27,6 @@ url='https://www.google.com/search?q='+searchTerm+'&tbm=isch'
     
 root_domain= re.split('[/:.?=]+',url) ##separate the domain name
 
-###############################################Start Calling The Methods#####################################################
-if(__name__=="__main__"):
-    retireveLinksAndImages(extractDataFromSoup(connectToURL(url)))
-
-############################################################################################################################
 #####################################################Connect The URL########################################################
 
 def connectToURL(url):    
@@ -117,66 +112,57 @@ def extractDataFromSoup(scrapped_data):
 ############################################################################################################################
 ########################################Retrieve The Links & Images & Write to File#########################################
 
-def retireveLinksAndImages(links_list):
+def retrieveImageLinks(links_list):
+    
     counter=0
+    parentFolderName='D:\\Medical\\'  
+    #build directory from the url being passed so as to have unique directories for each url
+    directory=parentFolderName+root_domain[2] 
+    #create a flat file to store the links. Put the links file into the respective link directory
+    links_to_store_filename= directory+'\\'+'links_'+str(datetime.now().strftime('%Y-%m-%d'))+'.txt'
     
-    links_to_store_filename='D:\\pramit.txt'
-    images_to_store_foldername='D:\\Medical\\'
-    
-    file=open(links_to_store_filename, 'w', encoding=encode)    
-    try:
-        for link in links_list:        
-            counter+=1        
-            finallink=link  # Assign link to linkew in case you do not need any customization
-           
-            file.write('Extraction Index: '+str(counter)+'\n')
-            file.write('URL: '+url+'\n')
-            file.write('Link extracted is: '+link+'\n')
-                   
-            #this is specific for google search links
-            if(root_domain[2]=='google'):
-                if(('http' in link) or ('https' in link)):
-                    finallink=link
-                elif(link.startswith('//')):
-                    finallink=scheme+':'+link
-                elif(link.startswith('/')):
-                    finallink=root_domain[0]+'://'+root_domain[1]+'.'+root_domain[2]+'.'+root_domain[3]+link 
-
-            #for all other urls
-            else:
-                if(link.startswith('//')):
-                    finallink=scheme+':'+link
-                elif(link.startswith('/')):
-                    if(url[-1]=='/'):
-                        finallink=url[:-1]+link #-1 removes the trailing / from the field URL so as to remove the duplicates
-                    else:
-                        finallink=url+link
-            
-            file.write('Finallink: '+finallink+'\n')
-                
-            #build directory from the url being passed so as to have unique directories for each url
-            directory=images_to_store_foldername+root_domain[2]                        
-            if not os.path.exists(directory):
+    if not os.path.exists(directory):
                 os.makedirs(directory)
-            #extract the file name from the url and build the file path
-            #file_path= 'D:\\Medical\\google\\'+finallink.split('/')[-1].split('?')[-1].split('=')[-1].split(':')[-1]
-            file_path=directory+'\\'+(re.split('[/?=:]+',finallink)[-1])
-            if('.' not in file_path):
-                #counter is added to avoid any unneccessary removal of filenames 
-                #in case they end with any of /?=: and also to avoid duplicates 
-                print('created file path: '+file_path+str(counter)+'.jpg')
-                file_path=file_path+str(counter)+'.jpg'             
-
-            print('---------------------------------------------------------------------------')
-            print('Extraction Index: '+str(counter)+'\nurl: '+url+'\nlink: '+link+'\nfinallink: '\
-                  +finallink+'\nExtracted Data is at: ' + file_path)
-            print('---------------------------------------------------------------------------')
             
-            #finally retrieve the file
-            request.urlretrieve(finallink, file_path)
+    file=open(links_to_store_filename, 'w', encoding=encode)
+    try:
+        #Run the loop based on your requirement. 
+        #WARNING: each loop returns 10100 records.
+        for _ in range(1):
+            file.write('URL: '+url+'\n\n')
             
-            file.write('Extracted Data is at: ' + file_path+'\n\n')
+            for link in links_list:
+                counter+=1        
+                finallink=link  # Assign link to linkew in case you do not need any customization
+           
+                file.write('\n'+str(counter)+' *** ')            
+                #file.write('Link extracted is: '+link+'\n')
+                   
+                #this is specific for google search links
+                if(root_domain[2]=='google'):
+                    if(('http' in link) or ('https' in link) or ('ftp' in link)):
+                        finallink=link
+                    elif(link.startswith('//')):
+                        finallink=scheme+':'+link
+                    elif(link.startswith('/')):
+                        finallink=root_domain[0]+'://'+root_domain[1]+'.'+root_domain[2]+'.'+root_domain[3]+link 
 
+                #for all other urls
+                else:
+                    if(link.startswith('//')):
+                        finallink=scheme+':'+link
+                    elif(link.startswith('/')):
+                        if(url[-1]=='/'):
+                            finallink=url[:-1]+link #-1 removes the trailing / from the field URL so as to remove the duplicates
+                        else:
+                            finallink=url+link
+            
+                file.write(finallink)
+                                                               
+                #print('---------------------------------------------------------------------------')
+                #print('Extraction Index: '+str(counter)+'\nlink: '+link+'\nfinallink: '+finallink)
+                #print('---------------------------------------------------------------------------')
+            
     except IOError as io:
         print('IO Error Occurred:\n'+str(io))
         pass
@@ -187,7 +173,72 @@ def retireveLinksAndImages(links_list):
         #flush the variables & streams to make them ready for next time.
         link=None
         finallink=None    
-        file.close()
-        print('Done!!.. Closed All The Connections.. Good Bye!!! :)')
+        file.close()       
+        
+    return links_to_store_filename
 
+############################################################################################################################# 
+###################################################Fetch The Images##########################################################
+    
+def extractImages(links_to_store_filename):
+    
+    filenametokens=links_to_store_filename.split('\\')
+    file_path='\\\\'.join(filenametokens[:-1])+'\\\\'
+    #file_path=file_path.strip() #remove any unnecessary characters
+            
+    counter=0
+    try:        
+        with open(links_to_store_filename) as link_file:
+               
+                for line in link_file:
+                    counter+=1
+                    
+                    #extract the file name from the url and build the file path
+                    #file_path= 'D:\\Medical\\google\\'+finallink.split('/')[-1].split('?')[-1].split('=')[-1].split(':')[-1]                    
+                    records=re.split('[ *** ]+',line)
+                    
+                    if(records[0].isdigit()): 
+                        finallink=records[1]
+                        image_file_path=file_path+(re.split('[/?=:,!@]+',finallink)[-1])
+                        image_file_path=image_file_path.strip() #remove any unnecessary characters
+                        print("v1: "+image_file_path)
+                        
+                        if('.' not in image_file_path):
+                            #counter is added to avoid any unneccessary removal of filenames 
+                            #in case they end with any of /?=: and also to avoid duplicates 
+                            #print('created file path: '+image_file_path+str(counter)+'.jpg')
+                            image_file_path=image_file_path+str(counter)+'.jpg'
+                            print("v2: "+image_file_path)
+                                                 
+                        #finally retrieve the file
+                        request.urlretrieve(finallink.strip(), image_file_path.strip())
+            
+                        #file.write('Extracted Data is at: ' + file_path+'\n\n')
+        
+    except IOError as io:
+        print('IO Error Occurr:\n'+str(io))
+        pass
+    except Exception as e:
+        print('An Error Occurred:\n', str(e))
+        pass
+    finally:
+        #flush the variables & streams to make them ready for next time.        
+        #finallink=None    
+        #file.close()
+        print('Done!!.. Closed All The Connections.. Good Bye!!! :)')
+            
 ########################################################<<DONE>>#############################################################    
+###############################################Start Calling The Functions#####################################################
+
+if(__name__=="__main__"):
+    
+    data=None
+    linkfilename=None
+    list=[]
+    
+    data=connectToURL(url)
+    list=extractDataFromSoup(data)
+    linkfilename=retrieveImageLinks(list)
+    extractImages(linkfilename)
+
+############################################################################################################################
