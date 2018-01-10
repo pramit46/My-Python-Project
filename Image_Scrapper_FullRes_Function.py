@@ -9,14 +9,14 @@ import os
 import re
 import json
 from datetime import datetime
-import pandas as pd
+
 
 
 ###############################################Declare/Build The Global Fields#####################################################
 scheme='https'
 encode='utf-8'
 proxy_user_id='User ID To Connect To Proxy Server'
-proxy_password= 'Base64 Encoded Password to Connect Proxy Server'
+proxy_password= 'Base64 Encoded Password to Connect to Proxy Server'
 proxy_server='Proxy Server Name'
 proxy_port='Proxy Server Port'     
 header={'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11',
@@ -137,7 +137,7 @@ def retrieveImageLinks(links_list):
     try:
         #Run the loop based on your requirement. 
         #WARNING: each loop returns 10100 records.
-        for _ in range(1):
+        #for _ in range(1):
             file.write('URL: '+url+'\n\n')
             
             for link in links_list:
@@ -173,7 +173,7 @@ def retrieveImageLinks(links_list):
                     print('Extraction Index: '+str(counter)+'\nlink: '+link+'\nfinallink: '+finallink)
                     print('---------------------------------------------------------------------------')
                 else:
-                    continue
+                    break
 
     except IOError as io:
         print('IO Error Occurred:\n'+str(io))
@@ -196,13 +196,11 @@ def extractImages(links_to_store_filename):
     
     filenametokens=links_to_store_filename.split('\\')
     file_path='\\\\'.join(filenametokens[:-1])+'\\\\'
-    file_path=file_path.strip() #remove any unnecessary characters
-    
+    file_path=file_path.strip() #remove any unnecessary characters    
               
     counter=0
     try:        
-        with open(links_to_store_filename) as link_file:
-               
+        with open(links_to_store_filename) as link_file:              
                 for line in link_file:
                     counter+=1
                     
@@ -212,7 +210,7 @@ def extractImages(links_to_store_filename):
                     
                     if(records[0].isdigit()): 
                         finallink=records[1]
-                        image_file_path=file_path+(re.split('[/?=:,!@]+',finallink)[-1])
+                        image_file_path=file_path+(re.split('[/?=:,!@%&]+',finallink)[-1])
                         image_file_path=image_file_path.strip() #remove any unnecessary characters
                         
                         if('.' not in image_file_path):
@@ -221,9 +219,11 @@ def extractImages(links_to_store_filename):
                             #print('created file path: '+image_file_path+str(counter)+'.jpg')
                             image_file_path=image_file_path+str(counter)+'.jpg'                            
                                                  
-                        print("v1: "+image_file_path)
+                        print(str(counter)+' : '+image_file_path)
 
-                        #finally retrieve the file                        
+                        #finally retrieve the file 
+                        #Ensure your request object has headers to pass in order to avoid the HTTP 403 error. 
+                        #Here this has been done in the Global Section                        
                         request.urlretrieve(finallink.strip(), image_file_path.strip())
                         #file.write('Extracted Data is at: ' + file_path+'\n\n')
         
@@ -242,7 +242,7 @@ def extractImages(links_to_store_filename):
 ########################################################<<DONE>>#############################################################    
 ###############################################Start Calling The Methods#####################################################
 
-if(__name__=="__main__"):
+if(__name__=='__main__'):
     
     data=None
     linkfilename=None
