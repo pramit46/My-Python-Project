@@ -41,9 +41,7 @@ request.install_opener(opener)
 searchTerm = 'Kate Winslet'
 
 # Replace spaces ' ' in search term for '%20' in order to comply with request
-searchTerm = searchTerm.replace(' ','%20')
-
-url='https://www.google.com/search?q='+searchTerm+'&tbm=isch'
+url='https://www.google.com/search?q='+searchTerm.replace(' ','%20')+'&tbm=isch'
 #url='https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India'
 #url='http://www.500px.com'
 #url='https://www.booking.com/'
