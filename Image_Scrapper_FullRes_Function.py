@@ -126,7 +126,10 @@ def retrieveImageLinks(links_list):
     counter=0
     parentFolderName='D:\\tmp\\'  
     #build directory from the url being passed so as to have unique directories for each url
-    directory=parentFolderName+root_domain[2] 
+    directory=parentFolderName+root_domain[2]
+    #if the directory is for google images, then create separate directories for each search term
+    if('google' in directory):
+        directory=directory+'\\'+searchTerm
     #create a flat file to store the links. Put the links file into the respective link directory
     links_to_store_filename= directory+'\\'+'links_'+str(datetime.now().strftime('%Y-%m-%d'))+'.txt'
     
