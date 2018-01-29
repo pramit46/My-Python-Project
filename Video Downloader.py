@@ -7,7 +7,6 @@ import urllib.request as request
 from bs4 import BeautifulSoup
 import base64
 
-#Declare the Global File Storing Location
 FileStorageDirectory='D:\\tmp\\'
 
 
@@ -19,13 +18,18 @@ class downloader:
         #url = 'https://www.youtube.com/watch?v=7Jojcy2siAo'
         #url = 'https://vimeo.com/channels/staffpicks/251083506'    
         url = 'https://fmovies.pe/watch/the-post.html'
+        #url ='https://www.youtube.com/watch?v=ifubq1rIKy8'
+        
 
         if('youtube' in url):
             print('into youtube')
             self.youtube(url,FileStorageDirectory)
         elif('fmovies' in url):
             print('into fmovies')
-            self.fmovies(url,FileStorageDirectory)        
+            self.fmovies(url,FileStorageDirectory)
+        elif('xpau' in url):
+            print('into xpau')
+            self.xpau(url,FileStorageDirectory)
 
 
     def youtube(self,url,FileStorageDirectory):
@@ -59,6 +63,14 @@ class downloader:
         file=audioBest.download(filepath=FileStorageDirectory,quiet=False)
 
 
+    def xpau(self,url,FileStorageDirectory):
+        request=self.connect()
+        response = request.Request(url, headers=header) #set user agent in header to avoid 403 error
+        scrapped_data = request.urlopen(response)
+        soup=BeautifulSoup(scrapped_data,'lxml')
+        
+        urllib.request.urlretrieve(url,filename="D:\\tmp\\X")
+    
     def fmovies(self,url,FileStorageDirectory):
         request = self.connect()
         response = request.Request(url, headers=header) #set user agent in header to avoid 403 error
@@ -85,10 +97,10 @@ class downloader:
     def connect(url):
         scheme='https'
         encode='utf-8'
-        proxy_user_id= '<<ID To Connect Proxy Server>>'
-        proxy_password= '<<PWD To Connect Proxy Server>>'
-        proxy_server='<<Proxy Server IP>>'
-        proxy_port='<<Proxy Server Port>>'     
+        proxy_user_id='585654'
+        proxy_password= 'TXljckB6ZTF1'
+        proxy_server='proxy.cognizantgoc.com'
+        proxy_port='6050'     
         header={'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11',
                    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
                    'Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.3',
