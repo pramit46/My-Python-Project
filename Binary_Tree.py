@@ -10,8 +10,7 @@ class Node:
         
         
 class Tree:       
-    def __init__(self):
-        self.root=None
+    root=None
         
     def printval(self,node):
         print("Data in this node is:"+str(node.v))
@@ -35,7 +34,7 @@ class Tree:
             current_val=node.v
             print("new_value: "+str(new_value)+" current_val: "+str(current_val))
             if(new_value<=current_val):
-                print("new val is less than current, so going left")
+                print("new val is less than equals to current val, so going left")
                 if(node.l==None):                    
                     node.l=Node(new_value)
                     print("created new left node and put the value")
@@ -43,7 +42,7 @@ class Tree:
                     print("going one step left")
                     self.insert(new_value,node.l)
             elif(new_value>current_val):
-                print("new val is greater than current, so going right")  
+                print("new val is greater than current val, so going right")  
                 if(node.r==None):
                     node.r=Node(new_value)
                     print("created new right node and put the value")
@@ -53,25 +52,29 @@ class Tree:
         return node
     
     def getroot(self,user_value):
-            if(self.root==None):
-                return self.insert(user_value,self.root)
+            if(root==None):
+                return self.insert(user_value,root)
             else:
-                return self.root
+                return root
     
     def delete(self):
         self.root=None
+        
         
     
 if(__name__=="__main__"):
     tree=None
     tree=Tree()
+    tree1=Tree()
     root=None
-    list=[10,12,5,30,'exit']
+    list=[23,23,2303,50,43,2.3,0]
+    list1=[2,2,233,5,7,5.3,0]
+
     for i in list:
         print("\nthe value is: "+str(i))
         #user_value=input("Please enter the value:")
-        user_value=i        
-        if(user_value == "exit"):
+        user_value=i
+        if(user_value == 0):
             tree.traverse(root)
             break
         else:        
@@ -81,4 +84,21 @@ if(__name__=="__main__"):
             else:
                 print("now the root is not empty")
                 node=tree.insert(user_value,root)
-    tree.delete()
+    
+    for i in list1:
+        print("\nthe value is: "+str(i))
+        #user_value=input("Please enter the value:")
+        user_value=i
+        if(user_value == 0):
+            tree1.traverse(root)
+            break
+        else:        
+            if(root==None):
+                print('root is empty')
+                root=tree1.getroot(user_value)
+            else:
+                print("now the root is not empty")
+                node=tree1.insert(user_value,root)
+    
+tree.delete()
+    
