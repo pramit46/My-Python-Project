@@ -53,9 +53,10 @@ root_domain= re.split('[/:.?=]+',url) ##separate the domain name
 def connectToURL(url):
   
     #Connect the URL and scrap the data
-    try:        
+    try:
+        scrapped_data = None
         response = request.Request(url, headers=header) #set user agent in header to avoid 403 error
-
+       
 #        proxyDict = {'https' : proxy_url}
 #        response=requests.get(url, headers=header, proxies=proxyDict)
         scrapped_data = request.urlopen(response)
@@ -250,8 +251,10 @@ if(__name__=='__main__'):
     list=[]
     
     data=connectToURL(url)
-    list=extractDataFromSoup(data)
-    linkfilename=retrieveImageLinks(list)
-    extractImages(linkfilename) #'D:\\tmp\\google\\links_2018-01-10.txt') 
+    if(data!=None):
+        list=extractDataFromSoup(data)
+        if(list!=None):
+            linkfilename=retrieveImageLinks(list)
+            extractImages(linkfilename) #'D:\\tmp\\google\\links_2018-01-10.txt') 
 
 ############################################################################################################################
