@@ -45,10 +45,10 @@ def youtube(self,url,FileStorageDirectory):
         print(str(mediaStream.dislikes))
         #print(mediaStream.description)
         #video=cv2.VideoCapture(best.url)
-        download_video(mediaStream)
-        download_audio(mediaStream)
+        dl.download_video(mediaStream)
+        dl.download_audio(mediaStream)
         
-    def download_video(mediaStream):
+    def download_video(self,mediaStream):
         videoStream = mediaStream.streams
         for video in videoStream:
             print(video.resolution, video.extension, video.get_filesize(), video.url)
@@ -59,7 +59,7 @@ def youtube(self,url,FileStorageDirectory):
         #filename = best.download(filepath="D:\\tmp\\Game." + best.extension) 
         filename = videoBest.download(filepath=FileStorageDirectory, quiet=False)
 
-    def download_audio(mediaStream):
+    def download_audio(self,mediaStream):
         audioStream=mediaStream.audiostreams
         for audio in audioStream:
             print(audio.bitrate, audio.extension, audio.get_filesize(), audio.url)
