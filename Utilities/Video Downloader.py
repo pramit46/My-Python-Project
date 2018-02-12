@@ -19,7 +19,9 @@ class downloader:
         #url = 'https://vimeo.com/channels/staffpicks/251083506'    
         url = 'https://fmovies.pe/watch/the-post.html'
         #url ='https://www.youtube.com/watch?v=ifubq1rIKy8'
-        
+        #url = 'https://www.facebook.com/video.php?v=1657561904290191'## this is wrong, look below
+        #url = 'https://video.fblr1-2.fna.fbcdn.net/v/t43.1792-2/27475332_867081756787240_3321359782647955456_n.mp4?\
+        #        efg=eyJ2ZW5jb2RlX3RhZyI6InN2ZV9oZCJ9&oh=960845e6c27c896c151e10c79613ce3c&oe=5A7B0411'
 
         if('youtube' in url):
             print('into youtube')
@@ -27,41 +29,42 @@ class downloader:
         elif('fmovies' in url):
             print('into fmovies')
             self.fmovies(url,FileStorageDirectory)
+        elif('facebook' in url):
+            print('into facebook')
+            self.facebook(url,FileStorageDirectory)
         elif('xpau' in url):
             print('into xpau')
             self.xpau(url,FileStorageDirectory)
 
 
-    def youtube(self,url,FileStorageDirectory):
+def youtube(self,url,FileStorageDirectory):
         mediaStream = pafy.new(url)
-
         print(str(mediaStream.version), str(mediaStream.viewcount))
         print(mediaStream.author,str(mediaStream.length))
         print(str(mediaStream.duration),str(mediaStream.likes))
         print(str(mediaStream.dislikes))
         #print(mediaStream.description)
         #video=cv2.VideoCapture(best.url)
-
-        videoStream = stream.streams
+        download_video(mediaStream)
+        download_audio(mediaStream)
+        
+    def download_video(mediaStream):
+        videoStream = mediaStream.streams
         for video in videoStream:
             print(video.resolution, video.extension, video.get_filesize(), video.url)
-
         videoBest = mediaStream.getbest() #use (preftype="mp4") as parameter to limit the search within the specified stream type
         print(videoBest.resolution, videoBest.extension)
-
         #download the video
         #you can use parameter quiet=False as well, but that does not work for me
         #filename = best.download(filepath="D:\\tmp\\Game." + best.extension) 
         filename = videoBest.download(filepath=FileStorageDirectory, quiet=False)
 
-
+    def download_audio(mediaStream):
         audioStream=mediaStream.audiostreams
         for audio in audioStream:
             print(audio.bitrate, audio.extension, audio.get_filesize(), audio.url)
-
         audioBest=mediaStream.getbestaudio(preftype='m4a')
         file=audioBest.download(filepath=FileStorageDirectory,quiet=False)
-
 
     def xpau(self,url,FileStorageDirectory):
         request=self.connect()
@@ -70,15 +73,28 @@ class downloader:
         soup=BeautifulSoup(scrapped_data,'lxml')
         
         urllib.request.urlretrieve(url,filename="D:\\tmp\\X")
+        
+    def facebook(self,url,FileStorageDirectory):               
+        #For Facebook: search for hd_src_noratelimit field and grab the url
+        header={'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11',
+                   'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+                   'Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.3',
+                   'Accept-Encoding': 'none',
+                   'Accept-Language': 'en-US,en;q=0.8',
+                   'Connection': 'keep-alive'}
+        file_name = 'D:\\tmp\\trial_video.mp4'
+        request=self.connect()
+        #response = request.Request(url, headers=header) #set user agent in header to avoid 403 error        
+        r=requests.get(url)
+        with open(file_name,'wb') as f:
+            f.write(r.content)    
     
     def fmovies(self,url,FileStorageDirectory):
         request = self.connect()
         response = request.Request(url, headers=header) #set user agent in header to avoid 403 error
         scrapped_data = request.urlopen(response)
         soup=BeautifulSoup(scrapped_data,'lxml')
-
         var=None
-
         links=soup.find_all('a')
         for img in soup.findAll('div', {'class': 'col3-btn'}):
             print(str(img))
@@ -97,10 +113,10 @@ class downloader:
     def connect(url):
         scheme='https'
         encode='utf-8'
-        proxy_user_id='585654'
-        proxy_password= 'TXljckB6ZTF1'
-        proxy_server='proxy.cognizantgoc.com'
-        proxy_port='6050'     
+        proxy_user_id=<<ID to connect Proxy>>
+        proxy_password= <<PWD to connect Proxy>>
+        proxy_server=<<Proxy Server Name>>
+        proxy_port=<<Proxy Server Port>>
         header={'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11',
                    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
                    'Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.3',
