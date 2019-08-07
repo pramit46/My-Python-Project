@@ -1,26 +1,26 @@
-def partition(low, high, arr):
-    PPivot=arr[high]
-    i=low-1
-    
-    for j in range(low,high):
-        if(arr[j]<=PPivot):
-            i+=1
-            arr[i],arr[j]=arr[j],arr[i]
+def quicksort(arr,low,high):
+    if(low<high):      
+        pindex=partition(arr,low,high)
+        quicksort(arr,low,pindex-1)
+        quicksort(arr,pindex+1,high)
+              
+def partition(arr,low,high):
+    pivot=arr[high]
+    pindex=low
+    for i in range(low,high):
+        if(arr[i]<=pivot):
+            arr[i],arr[pindex]=arr[pindex],arr[i]
+            pindex=pindex+1
             
-    arr[i+1],arr[high]=arr[high],arr[i+1]
-    return i+1
-    
-def quicksort(low,high, arr):
-    if(low<high):
-        QPivot=partition(low,high,arr)
-        quicksort(low,QPivot-1, arr)
-        quicksort(QPivot,high, arr)    
-    return arr
-    
-    
-arr=[10, 40, 30, 50, 80, 40, 20, 70]
-high=len(arr)-1
-low=0
-arr=quicksort(low,high,arr)
-for x in range(len(arr)):
-    print(arr[x])
+    arr[high],arr[pindex]=arr[pindex],arr[high]
+    return pindex
+
+def main():
+    arr=[1,3,33,3,43,4,5,4,4,56,5,100,99]
+    low=0
+    high=len(arr)-1
+    quicksort(arr,low,high)
+    for i in range(low,len(arr)):
+        print(arr[i])
+        
+if __name__ == "__main__": main()
