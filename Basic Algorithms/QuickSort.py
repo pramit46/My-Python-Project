@@ -20,7 +20,7 @@ def main():
     low=0
     high=len(arr)-1
     quicksort(arr,low,high)
-    for i in range(low,len(arr)):
+    for i in range(len(arr)):
         print(arr[i])
         
 if __name__ == "__main__": main()
