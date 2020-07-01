@@ -1,0 +1,39 @@
+#This code will execute a UNIX command through python script and 
+#log the output to a logger file whose configuration is fetched from an ini file.
+
+import os
+import logging
+#the filname is changed in python v2.x
+import configparser 
+import subprocess
+
+#create a config object. The object configparser may not be called if used python v2.x
+config=configparser.ConfigParser()
+
+#declare the config file to read, the extension does not matter so long as the format has been followed
+config.read('test.ini')
+
+#setup the logging configuration. Read the logfile name which is to be created from the config file.
+#the config file content is as follows:
+#[logfilename]
+#filename=test1.log
+#basic configuration is to just mention the filename and the level, formatting is optional
+logging.basicConfig(filename=config['logfilename'].get('filename'),level=logging.INFO,format='%(asctime)s:%(levelname)s:%(message)s')
+#create a logger object (optional)
+logger=logging.getLogger(__name__)
+
+def runCommand(cmd):
+	data = subprocess.check_output(cmd,shell=True)
+	#convert the data object to string and remove b' through [2:-1] and split by newline character but the catch is, 
+	#here it is written as plain \n instead of a newline character, hence use an extra \
+	output=str(data)[2:-1].split('\\n')
+	for line in output:
+		logger.info(line)
+
+runCommand('ls -lrt /opt/splunk/etc/apps/|grep Std')
+runCommand('pwd')
+
+
+
+
+
