@@ -10,7 +10,7 @@ from flask import Flask, render_template, request, redirect, url_for, send_from_
 __version__ = "1.0"
 #This needs to be dynamically populated, instead of hard coding. But not a priority right now
 baseLocation= os.path.join('C:\\','Users','prambasu','Downloads','Personal Docs','python_projects','MyPython','File_Upload_Project')
-uploadedFileLocation = os.path.join(baseLocation,'Uploaded Files')
+uploadedFileLocation = os.path.join(baseLocation,'Storage')
 logFileLocation=  os.path.join(baseLocation,'Logs')
 templateLocation =  os.path.join(baseLocation,'templates')
     
