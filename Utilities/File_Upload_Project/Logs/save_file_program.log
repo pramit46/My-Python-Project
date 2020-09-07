@@ -1,0 +1,45 @@
+2020-09-07 23:47:49,711 INFO  * Restarting with stat
+2020-09-07 23:47:50,987 WARNING  * Debugger is active!
+2020-09-07 23:47:50,993 INFO  * Debugger PIN: 320-099-967
+2020-09-07 23:47:51,021 INFO  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2020-09-07 23:48:15,432 INFO 127.0.0.1 - - [07/Sep/2020 23:48:15] "[32mPOST /upload-result HTTP/1.1[0m" 302 -
+2020-09-07 23:48:15,495 INFO 127.0.0.1 - - [07/Sep/2020 23:48:15] "[37mGET /error/No%20file%20was%20uploaded HTTP/1.1[0m" 200 -
+2020-09-07 23:56:05,235 INFO  * Restarting with stat
+2020-09-07 23:56:06,671 WARNING  * Debugger is active!
+2020-09-07 23:56:06,687 INFO  * Debugger PIN: 320-099-967
+2020-09-07 23:56:06,719 INFO  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2020-09-07 23:56:33,068 INFO 127.0.0.1 - - [07/Sep/2020 23:56:33] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2020-09-07 23:56:33,185 INFO 127.0.0.1 - - [07/Sep/2020 23:56:33] "[37mGET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 200 -
+2020-09-07 23:56:33,187 INFO 127.0.0.1 - - [07/Sep/2020 23:56:33] "[37mGET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 200 -
+2020-09-07 23:56:33,188 INFO 127.0.0.1 - - [07/Sep/2020 23:56:33] "[37mGET /?__debugger__=yes&cmd=resource&f=jquery.js HTTP/1.1[0m" 200 -
+2020-09-07 23:56:33,370 INFO 127.0.0.1 - - [07/Sep/2020 23:56:33] "[37mGET /?__debugger__=yes&cmd=resource&f=ubuntu.ttf HTTP/1.1[0m" 200 -
+2020-09-07 23:56:33,417 INFO 127.0.0.1 - - [07/Sep/2020 23:56:33] "[37mGET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 200 -
+2020-09-07 23:56:33,530 INFO 127.0.0.1 - - [07/Sep/2020 23:56:33] "[37mGET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 200 -
+2020-09-08 00:00:18,046 INFO  * Detected change in 'C:\\Users\\prambasu\\Downloads\\Personal Docs\\python_projects\\MyPython\\File_Upload_Project\\bin\\save_file.py', reloading
+2020-09-08 00:00:18,114 INFO  * Restarting with stat
+2020-09-08 00:01:03,642 INFO  * Restarting with stat
+2020-09-08 00:01:12,898 WARNING  * Debugger is active!
+2020-09-08 00:01:12,936 INFO  * Debugger PIN: 320-099-967
+2020-09-08 00:01:13,082 INFO  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2020-09-08 00:01:18,872 INFO 127.0.0.1 - - [08/Sep/2020 00:01:18] "[37mGET / HTTP/1.1[0m" 200 -
+2020-09-08 00:01:20,753 INFO 127.0.0.1 - - [08/Sep/2020 00:01:20] "[32mPOST /upload-result HTTP/1.1[0m" 302 -
+2020-09-08 00:01:20,898 INFO 127.0.0.1 - - [08/Sep/2020 00:01:20] "[37mGET /error/No%20file%20was%20uploaded HTTP/1.1[0m" 200 -
+2020-09-08 00:01:37,091 INFO 127.0.0.1 - - [08/Sep/2020 00:01:37] "[32mPOST /upload-result HTTP/1.1[0m" 302 -
+2020-09-08 00:01:37,553 INFO 127.0.0.1 - - [08/Sep/2020 00:01:37] "[37mGET /error/No%20file%20was%20uploaded HTTP/1.1[0m" 200 -
+2020-09-08 00:01:46,101 INFO 127.0.0.1 - - [08/Sep/2020 00:01:46] "[32mPOST /upload-result HTTP/1.1[0m" 302 -
+2020-09-08 00:01:46,213 INFO 127.0.0.1 - - [08/Sep/2020 00:01:46] "[37mGET /success/ansible.png HTTP/1.1[0m" 200 -
+2020-09-08 00:03:14,193 INFO  * Detected change in 'C:\\Users\\prambasu\\Downloads\\Personal Docs\\python_projects\\MyPython\\File_Upload_Project\\bin\\save_file.py', reloading
+2020-09-08 00:03:14,284 INFO  * Restarting with stat
+2020-09-08 00:07:30,966 INFO  * Restarting with stat
+2020-09-08 00:07:34,466 WARNING  * Debugger is active!
+2020-09-08 00:07:34,477 INFO  * Debugger PIN: 320-099-967
+2020-09-08 00:07:34,519 INFO  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2020-09-08 00:07:35,962 INFO 127.0.0.1 - - [08/Sep/2020 00:07:35] "[32mPOST /upload-result HTTP/1.1[0m" 302 -
+2020-09-08 00:07:36,055 INFO 127.0.0.1 - - [08/Sep/2020 00:07:36] "[37mGET /success/ansible.png HTTP/1.1[0m" 200 -
+2020-09-08 00:07:43,037 INFO 127.0.0.1 - - [08/Sep/2020 00:07:43] "[32mPOST /upload-result HTTP/1.1[0m" 302 -
+2020-09-08 00:07:43,177 INFO 127.0.0.1 - - [08/Sep/2020 00:07:43] "[37mGET /error/No%20file%20was%20uploaded HTTP/1.1[0m" 200 -
+2020-09-08 00:07:54,866 INFO  * Detected change in 'C:\\Users\\prambasu\\Downloads\\Personal Docs\\python_projects\\MyPython\\File_Upload_Project\\bin\\save_file.py', reloading
+2020-09-08 00:07:54,917 INFO  * Restarting with stat
+2020-09-08 00:07:58,446 WARNING  * Debugger is active!
+2020-09-08 00:07:58,466 INFO  * Debugger PIN: 320-099-967
+2020-09-08 00:07:58,521 INFO  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
