@@ -19,6 +19,6 @@ print("====> sessionkey:  %s  <====" % sessionkey)
 #  headers = {'Authorization': 'Splunk %s' % sessionkey})
 
 #This part is not working for some reasons. Still working on it
-response = requests.get("https://localhost:8089/servicesNS/nobody/Splunk_Security_Essentials/storage/collections/data/kvstorecoll?sort=name&skip=10&limit=10",verify=False,
+response = requests.get("https://localhost:8089/servicesNS/nobody/search_activity/storage/collections/config",verify=False,
   headers = {'Authorization': 'Splunk %s' % sessionkey})
 print(response.text)
